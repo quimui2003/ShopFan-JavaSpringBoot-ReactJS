@@ -1,19 +1,20 @@
 package com.example.shop_fan.service;
 
-import com.example.shop_fan.model.productsModel;
-import com.example.shop_fan.repository.productsRepository;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.Optional;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import com.example.shop_fan.model.productsModel;
+import com.example.shop_fan.repository.productsRepository;
 
 @Service
 public class productsService {
@@ -46,7 +47,7 @@ public class productsService {
             Path path = Paths.get(uploadDir + "/" + fileName);
 
             // Lưu file vào thư mục chỉ định
-            Files.copy(file.getInputStream(), path);
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
             return fileName;
         } catch (IOException e) {
